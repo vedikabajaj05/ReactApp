@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.31d6cfe0.css",
+    "main.js": "/static/js/main.c58246ce.js",
+    "static/media/background.jpg": "/static/media/background.4915b66a5bc9048c7535.jpg",
+    "static/media/centum.png": "/static/media/centum.2390cdc4ad90d43632d1.png",
+    "static/media/immunity.png": "/static/media/immunity.8c96bed60d33b0001484.png",
+    "static/media/rashes.png": "/static/media/rashes.7b3a3df0a226a79a1745.png",
+    "static/media/boness.png": "/static/media/boness.955faf78de30f9d41535.png",
+    "static/media/focus.png": "/static/media/focus.c387204852803318defa.png",
+    "static/media/glow.png": "/static/media/glow.2f91ae67d8a987670c90.png",
+    "static/media/sickPerson.png": "/static/media/sickPerson.a284ca528d7c3723e9d1.png",
+    "index.html": "/index.html",
+    "main.c58246ce.js.map": "/static/js/main.c58246ce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.c58246ce.js"
+  ]
+}
