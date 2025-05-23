@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";  // Import the useNavigate hook
-import background from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/background.jpg";
-import glowIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/glow.png";
-import bonesIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/boness.png";
-import immunityIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/immunity.png";
-import energyIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/energy.png";
-import focusIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/focus.png";
-import logo from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/centum.png";
+import background from '../image/background.jpg';
+import glowIcon from '../image/glow.png';
+import bonesIcon from '../image/boness.png';
+import immunityIcon from '../image/immunity.png';
+import energyIcon from '../image/energy.png';
+import focusIcon from '../image/focus.png';
+import logo from '../image/centum.png';
+
 
 const Question1 = () => {
     const [selectedGoal, setSelectedGoal] = useState("");
