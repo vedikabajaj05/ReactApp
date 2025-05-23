@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import background from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/background.jpg";
-import sickImage from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/sickPerson.png"; 
-import logo from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/centum.png"; 
+import background from '../image/background.jpg';
+import sickImage from '../image/sickPerson.png';
+import logo from '../image/centum.png';
 
 const YesNo = () => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
