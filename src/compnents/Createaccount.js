@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
-import logo from './image/centum.png';
-import background from './image/background.jpg';
+import logo from '../image/centum.png';
+import background from '../image/background.jpg';
 
 const CreateAccount = () => {
     const [formData, setFormData] = useState({
