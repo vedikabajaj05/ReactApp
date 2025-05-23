@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate to handle navigation
-import background from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/background.jpg";
-import wrinkledSkinIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/wrinkled.png";
-import skinRashIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/rashes.png";
-import paleSkinIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/pale.png";
-import darkKnucklesIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/dark.png";
-import thinningHairIcon from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/hairthin.png";
-import logo from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/centum.png";
+import background from '../image/background.jpg';
+import wrinkledSkinIcon from '../image/wrinkled.png';
+import skinRashIcon from '../image/rashes.png';
+import paleSkinIcon from '../image/pale.png';
+import darkKnucklesIcon from '../image/dark.png';
+import thinningHairIcon from '../image/hairthin.png';
+import logo from '../image/centum.png';
 
 const Question2 = () => {
     const [selectedIssue, setSelectedIssue] = useState("");
