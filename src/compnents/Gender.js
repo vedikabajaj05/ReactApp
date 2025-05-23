@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from './image/centum.png';
-import background from './image/background.jpg';
-import genderImage from './image/gender.png';
+import logo from '../image/centum.png';
+import background from '../image/background.jpg';
+import genderImage from '../image/gender.png';
 
 const Gender = () => {
     const [selectedGender, setSelectedGender] = useState("");
