@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Home.js';
-import CreateAccount from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Createaccount.js';
-import Gender from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Gender.js';
-import Question1 from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/question1.js'; 
-import Question2 from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Question2.js'; 
-import YesNo from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/YesNo.js'; 
-import Scan from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Scan.js'; 
-import Predictions from 'C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/compnents/Prediction.js'; 
+import Home from './components/Home';
+import CreateAccount from './components/Createaccount';
+import Gender from './components/Gender';
+import Question1 from './components/question1';
+import Question2 from './components/Question2';
+import YesNo from './components/YesNo';
+import Scan from './components/Scan';
+import Predictions from './components/Prediction';
 
 function App() {
   return (
