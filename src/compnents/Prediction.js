@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import background from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/background.jpg";
-import logo from "C:/Users/vedik/OneDrive/Desktop/centrumq/centrumq/src/image/centum.png"; 
+import background from '../image/background.jpg';
+import logo from '../image/centum.png';
+
 
 const Prediction = () => {
   const location = useLocation(); 
