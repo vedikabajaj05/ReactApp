@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import * as tf from "@tensorflow/tfjs";
+import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import background from "../image/background.jpg";
@@ -8,15 +7,11 @@ import logo from "../image/centum.png";
 const Scan = () => {
   const [image, setImage] = useState(null);
   const [selectedInputMethod, setSelectedInputMethod] = useState(null);
-  const [predictionResult, setPredictionResult] = useState(null);
-  const [loadingModel, setLoadingModel] = useState(true);
   const [predicting, setPredicting] = useState(false);
   const navigate = useNavigate();
-  const webcamRef = React.useRef(null);
+  const webcamRef = useRef(null);
 
-  useEffect(() => {
-    // No need to load the model in React as the backend is handling the prediction
-  }, []);
+  // No need to load TF model here, backend handles that.
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -30,8 +25,10 @@ const Scan = () => {
   };
 
   const handleCameraCapture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImage(imageSrc);
+    if (webcamRef.current) {
+      const imageSrc = webcamRef.current.getScreenshot();
+      setImage(imageSrc);
+    }
   };
 
   const processImageAndPredict = async () => {
@@ -42,24 +39,31 @@ const Scan = () => {
 
     setPredicting(true);
 
-    // Prepare the image for upload
-    const formData = new FormData();
-    const response = await fetch(image);
-    const blob = await response.blob();
-    formData.append("image", blob, "test_image.jpg");
-
     try {
+      // Convert base64 image to blob for FormData
+      const response = await fetch(image);
+      const blob = await response.blob();
+
+      const formData = new FormData();
+      formData.append("file", blob, "uploaded_image.jpg");
+
+
       const res = await fetch("http://localhost:5000/predict", {
         method: "POST",
         body: formData,
       });
+
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
       const data = await res.json();
 
       if (data.predicted_class) {
-        setPredictionResult(data);
+        // Navigate and pass prediction data to /prediction route
         navigate("/prediction", { state: { predictionResult: data } });
       } else {
-        alert("Prediction failed.");
+        alert("Prediction failed: No predicted_class in response.");
       }
     } catch (error) {
       console.error("Error during prediction:", error);
@@ -69,106 +73,39 @@ const Scan = () => {
     }
   };
 
-  const styles = {
-    container: {
-      position: "relative",
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
-      paddingTop: "60px",
-    },
-    navbar: {
-      position: "fixed",
-      top: "0",
-      left: "0",
-      width: "100%",
-      backgroundColor: "#f8f9fa",
-      display: "flex",
-      alignItems: "center",
-      padding: "10px",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      zIndex: 1000,
-      fontFamily: "Arial, sans-serif",
-    },
-    backgroundImage: {
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundImage: `url(${background})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      filter: "blur(8px)",
-      zIndex: -1,
-    },
-    section: {
-      backgroundColor: "white",
-      padding: "50px",
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      width: "500px",
-      textAlign: "center",
-    },
-    button: {
-      padding: "12px 24px",
-      backgroundColor: "#007bff",
-      color: "white",
-      border: "none",
-      borderRadius: "4px",
-      cursor: "pointer",
-      fontSize: "16px",
-      marginTop: "20px",
-    },
-    disclaimer: {
-      backgroundColor: "#f8f9fa",
-      padding: "20px",
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      marginBottom: "20px",
-      fontSize: "14px",
-      textAlign: "left",
-      color: "#333",
-    },
-  };
+  // ... styles and JSX remain the same as your original, just remove the unused TF import
 
   return (
-    <div style={styles.container}>
+    <div style={{ position: "relative", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", paddingTop: "60px" }}>
       {/* Navbar */}
-      <nav style={styles.navbar}>
+      <nav style={{ position: "fixed", top: 0, left: 0, width: "100%", backgroundColor: "#f8f9fa", display: "flex", alignItems: "center", padding: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)", zIndex: 1000, fontFamily: "Arial, sans-serif" }}>
         <img src={logo} alt="Logo" style={{ height: "40px", marginLeft: "10px" }} />
       </nav>
 
-      {/* Background Image */}
-      <div style={styles.backgroundImage}></div>
+      {/* Background */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: "center", filter: "blur(8px)", zIndex: -1 }}></div>
 
-      <section style={styles.section}>
+      <section style={{ backgroundColor: "white", padding: "50px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0,0,0,0.2)", width: "500px", textAlign: "center" }}>
         <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px", color: "#333" }}>
           Choose an input method to scan image for the Nutrition Test
         </h2>
 
-        <div style={styles.disclaimer}>
+        <div style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0,0,0,0.1)", marginBottom: "20px", fontSize: "14px", textAlign: "left", color: "#333" }}>
           <strong>Disclaimer:</strong>
           <p>
-          This is a purely predictive analysis which can help detect any 
-          possible nutrient deficiencies you might have. We encourage 
-          you to not take report generated as the sole proof of any 
-          medical condition and consult a doctor for further examination 
-          of micronutrient deficiencies
+            This is a purely predictive analysis which can help detect any
+            possible nutrient deficiencies you might have. We encourage
+            you to not take report generated as the sole proof of any
+            medical condition and consult a doctor for further examination
+            of micronutrient deficiencies.
           </p>
         </div>
 
         <div style={{ marginBottom: "20px" }}>
-          <button onClick={() => setSelectedInputMethod("camera")} style={styles.button}>
+          <button onClick={() => setSelectedInputMethod("camera")} style={{ padding: "12px 24px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "16px", marginRight: "20px" }}>
             Use Camera
           </button>
-          <button
-            onClick={() => setSelectedInputMethod("upload")}
-            style={{ ...styles.button, marginLeft: "20px" }}
-          >
+          <button onClick={() => setSelectedInputMethod("upload")} style={{ padding: "12px 24px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "16px" }}>
             Upload Image
           </button>
         </div>
@@ -176,7 +113,7 @@ const Scan = () => {
         {selectedInputMethod === "camera" && (
           <div style={{ marginBottom: "20px" }}>
             <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" width="100%" />
-            <button onClick={handleCameraCapture} style={styles.button}>
+            <button onClick={handleCameraCapture} style={{ padding: "12px 24px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "16px", marginTop: "10px" }}>
               Capture Image
             </button>
           </div>
@@ -190,20 +127,8 @@ const Scan = () => {
 
         {image && (
           <div style={{ marginBottom: "20px" }}>
-            <img
-              src={image}
-              alt="Selected"
-              style={{
-                width: "100%",
-                maxHeight: "400px",
-                objectFit: "contain",
-              }}
-            />
-            <button
-              onClick={processImageAndPredict}
-              style={styles.button}
-              disabled={predicting}
-            >
+            <img src={image} alt="Selected" style={{ width: "100%", maxHeight: "400px", objectFit: "contain" }} />
+            <button onClick={processImageAndPredict} disabled={predicting} style={{ padding: "12px 24px", backgroundColor: predicting ? "#6c757d" : "#007bff", color: "white", border: "none", borderRadius: "4px", cursor: predicting ? "not-allowed" : "pointer", fontSize: "16px", marginTop: "20px" }}>
               {predicting ? "Processing..." : "Scan Image"}
             </button>
           </div>
