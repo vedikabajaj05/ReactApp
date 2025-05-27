@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS to allow your React frontend to make requests
 
 # Load the model once when the app starts
-model = tf.keras.models.load_model('final.keras')
+model = tf.keras.models.load_model('final1.keras')
 
 class_names = ['DEFICIENT', 'NORMAL']
 
@@ -22,7 +22,7 @@ def preprocess_image(img_bytes):
     img = img.resize((IMG_WIDTH, IMG_HEIGHT))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)  
-    img_array = img_array / 255.0  
+    # img_array = img_array / 255.0  
     return img_array
 
 @app.route('/', methods=['GET'])
