@@ -11,7 +11,6 @@ const Scan = () => {
   const navigate = useNavigate();
   const webcamRef = useRef(null);
 
-  // No need to load TF model here, backend handles that.
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -47,6 +46,10 @@ const Scan = () => {
       const formData = new FormData();
       formData.append("file", blob, "uploaded_image.jpg");
 
+      if (!image.startsWith("data:image/")) {
+        alert("Invalid image format.");
+        return;
+      }
 
       const res = await fetch("http://localhost:5000/predict", {
         method: "POST",
@@ -73,7 +76,7 @@ const Scan = () => {
     }
   };
 
-  // ... styles and JSX remain the same as your original, just remove the unused TF import
+  //styles
 
   return (
     <div style={{ position: "relative", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", paddingTop: "60px" }}>
