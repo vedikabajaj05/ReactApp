@@ -12,7 +12,12 @@ CORS(app)  # Enable CORS to allow your React frontend to make requests
 # Load the model once when the app starts
 model = tf.keras.models.load_model('final1.keras')
 
-class_names = ['DEFICIENT', 'NORMAL']
+# import json
+# with open("class_names.json", "r") as f:
+#     class_names = json.load(f)
+
+
+class_names = ['Acne and Rosacea', 'Atopic Dermatitis', 'Hair Loss Photos Alopecia and other Hair Diseases', 'Light Diseases and Disorders of Pigmentation', 'NORMAL', 'Poison Ivy Photos and other Contact Dermatitis']
 
 IMG_HEIGHT = 180
 IMG_WIDTH = 180
