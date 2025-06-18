@@ -1,11 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import background from '../image/background.jpg';
-import logo from '../image/centum.png';
-
+import { useNavigate } from "react-router-dom";
+import background from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/background.jpg";
+import logo from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/centum.png"; 
 
 const Prediction = () => {
   const location = useLocation(); 
+  const navigate = useNavigate();
   const { predictionResult } = location.state || {}; 
 
   return (
@@ -26,6 +27,21 @@ const Prediction = () => {
         <div style={{ marginTop: '20px' }}>
           <h3>Prediction Result:</h3>
           <p>{JSON.stringify(predictionResult)}</p>
+          <button
+  onClick={() => navigate("/randomproducts", { state: { predictionResult } })}
+  style={{
+    marginTop: "30px",
+    padding: "10px 20px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  }}
+>
+  View Recommended Products
+</button>
+
         </div>
       </section>
     </div>
