@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from '../image/centum.png';
-import background from '../image/background.jpg';
-import genderImage from '../image/gender.png';
+import logo from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/centum.png";
+import background from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/background.jpg";
+import genderImage from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/gender.png";
 
 const Gender = () => {
     const [selectedGender, setSelectedGender] = useState("");
     const navigate = useNavigate();
 
-    const handleGenderChange = (e) => {
-        setSelectedGender(e.target.value);
+    const handleGenderClick = (gender) => {
+        setSelectedGender(gender);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (selectedGender) {
             console.log("Gender Selected:", selectedGender);
+            localStorage.setItem("selectedGender", selectedGender);
             navigate("/question1");
         } else {
             alert("Please select a gender before proceeding.");
@@ -72,15 +73,24 @@ const Gender = () => {
         fontFamily: "Arial, sans-serif",
     };
 
-    const dropdownStyle = {
-        width: "100%",
+    const buttonGroupStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: "15px",
+        gap: "10px",
+    };
+
+    const buttonStyle = (gender) => ({
+        flex: 1,
         padding: "12px",
         borderRadius: "4px",
         border: "1px solid #ccc",
-        marginTop: "10px",
-        fontFamily: "Arial, sans-serif",
+        backgroundColor: selectedGender === gender ? "#007bff" : "#f0f0f0",
+        color: selectedGender === gender ? "white" : "#333",
+        cursor: "pointer",
         fontSize: "16px",
-    };
+        fontFamily: "Arial, sans-serif",
+    });
 
     return (
         <>
@@ -98,6 +108,7 @@ const Gender = () => {
                     filter: "blur(8px)",
                     zIndex: -1
                 }}></div>
+
                 <nav style={{
                     position: "fixed",
                     top: "0",
@@ -113,6 +124,7 @@ const Gender = () => {
                 }}>
                     <img src={logo} alt="Logo" style={{ height: "40px", marginLeft: "10px" }} />
                 </nav>
+
                 <section style={sharedBoxStyle}>
                     <h2 style={titleStyle}>Select Your Gender</h2>
                     <div style={imageBoxStyle}>
@@ -126,19 +138,14 @@ const Gender = () => {
                             }}
                         />
                     </div>
+
                     <form onSubmit={handleSubmit}>
-                        <label style={labelStyle} htmlFor="genderDropdown">Select Gender:</label>
-                        <select
-                            id="genderDropdown"
-                            value={selectedGender}
-                            onChange={handleGenderChange}
-                            style={dropdownStyle}
-                        >
-                            <option value="" disabled>Select an option</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                            <option value="dont_wish_to_disclose">Don't wish to disclose</option>
-                        </select>
+                        <label style={labelStyle}>Select Gender:</label>
+                        <div style={buttonGroupStyle}>
+                            <button type="button" style={buttonStyle("female")} onClick={() => handleGenderClick("female")}>Female</button>
+                            <button type="button" style={buttonStyle("male")} onClick={() => handleGenderClick("male")}>Male</button>
+                            <button type="button" style={buttonStyle("dont_wish_to_disclose")} onClick={() => handleGenderClick("dont_wish_to_disclose")}>Others</button>
+                        </div>
                         <button
                             type="submit"
                             style={{

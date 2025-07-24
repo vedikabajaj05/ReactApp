@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import background from '../image/background.jpg';
-import sickImage from '../image/sickPerson.png';
-import logo from '../image/centum.png';
+import background from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/background.jpg";
+import sickImage from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/sickPerson.png"; 
+import logo from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/centum.png"; 
 
 const YesNo = () => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
@@ -41,7 +41,19 @@ const YesNo = () => {
       </nav>
 
      
-      <div style={{ content: '""', position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: "center", filter: "blur(8px)", zIndex: -1 }}></div>
+      <div style={{
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: -1,
+  backgroundImage: `url(${background})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  filter: "blur(8px)"
+}}></div>
 
       <section style={{ backgroundColor: "white", padding: "50px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", width: "500px", textAlign: "center" }}>
         <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px", color: "#333" }}>

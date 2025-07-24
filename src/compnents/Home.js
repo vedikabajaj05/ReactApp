@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../image/centum.png';
-import background from '../image/background.jpg';
+import logo from 'C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/centum.png';
+import background from 'C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/background.jpg';
 
 const Home = () => {
     const navigate = useNavigate();  // Hook to navigate to another route
@@ -92,8 +92,8 @@ const Home = () => {
     };
 
     const handleLogin = () => {
-        // Simply navigate to /question1 on login
-        navigate('/question1');
+        // Simply navigate to /gender on login
+        navigate("/gender");
     };
 
     return (

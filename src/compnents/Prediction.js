@@ -17,7 +17,20 @@ const Prediction = () => {
       </nav>
 
 
-      <div style={{ content: '""', position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: "center", filter: "blur(8px)", zIndex: -1 }}></div>
+      <div style={{
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: -1,
+  backgroundImage: `url(${background})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  filter: "blur(8px)"
+}}></div>
+
 
       <section style={{ backgroundColor: "white", padding: "50px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", width: "500px", textAlign: "center" }}>
         <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px", color: "#333" }}>

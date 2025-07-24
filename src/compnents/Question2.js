@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate to handle navigation
-import background from '../image/background.jpg';
-import wrinkledSkinIcon from '../image/wrinkled.png';
-import skinRashIcon from '../image/rashes.png';
-import paleSkinIcon from '../image/pale.png';
-import darkKnucklesIcon from '../image/dark.png';
-import thinningHairIcon from '../image/hairthin.png';
-import logo from '../image/centum.png';
+import background from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/background.jpg";
+import wrinkledSkinIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/wrinkled.png";
+import skinRashIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/rashes.png";
+import paleSkinIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/pale.png";
+import darkKnucklesIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/dark.png";
+import thinningHairIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/hairthin.png";
+import otherIcon from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/image.png"; // Added Other icon image
+import logo from "C:/Users/vedik/OneDrive/Desktop/ReactApp-main/ReactApp-main/src/image/centum.png";
 
 const Question2 = () => {
     const [selectedIssue, setSelectedIssue] = useState("");
+    const [otherIssue, setOtherIssue] = useState(""); // State for custom issue input
     const navigate = useNavigate(); // Initialize navigate hook
 
     const handleIssueSelect = (issue) => {
         setSelectedIssue(issue);
+        if (issue !== "other") {
+            setOtherIssue(""); // Clear custom input if not "other"
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (selectedIssue) {
-            console.log("Selected Hair/Skin Issue:", selectedIssue);
-            // Navigate to YesNo.js with the selected issue as state
-            navigate("/yesno", { state: { issue: selectedIssue } });
+        if (selectedIssue && (selectedIssue !== "other" || otherIssue.trim() !== "")) {
+            const finalIssue = selectedIssue === "other" ? otherIssue.trim() : selectedIssue;
+            console.log("Selected Hair/Skin Issue:", finalIssue);
+            // Navigate to YesNo.js with the final issue (custom or selected)
+            navigate("/yesno", { state: { issue: finalIssue } });
+        } else {
+            alert("Please select an issue or specify your custom issue.");
         }
     };
 
@@ -91,32 +99,34 @@ const Question2 = () => {
     };
 
     const wrapperStyle = {
-        textAlign: "center", 
+        textAlign: "center",
     };
 
     const secondRowStyle = {
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)", 
-        gap: "1px", 
-        justifyItems: "center", 
+        gridTemplateColumns: "repeat(3, 1fr)", // Changed to 3 columns for 3 items including "Other"
+        gap: "20px",
+        justifyItems: "center",
     };
 
     return (
         <>
             {/* Navbar */}
-            <nav style={{
-                position: "fixed",
-                top: "0",
-                left: "0",
-                width: "100%",
-                backgroundColor: "#f8f9fa",
-                display: "flex",
-                alignItems: "center",
-                padding: "10px",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                zIndex: 1000,
-                fontFamily: "Arial, sans-serif",
-            }}>
+            <nav
+                style={{
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    backgroundColor: "#f8f9fa",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "10px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    zIndex: 1000,
+                    fontFamily: "Arial, sans-serif",
+                }}
+            >
                 <img src={logo} alt="Logo" style={{ height: "40px", marginLeft: "10px" }} />
             </nav>
 
@@ -236,7 +246,45 @@ const Question2 = () => {
                                 </div>
                                 <div style={labelStyle}>Thinning Hair</div>
                             </div>
+
+                            <div style={wrapperStyle}>
+                                <div
+                                    style={selectedIssue === "other" ? selectedIconStyle : iconStyle}
+                                    onClick={() => handleIssueSelect("other")}
+                                >
+                                    <img
+                                        src={otherIcon}
+                                        alt="Other"
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                            borderRadius: "50%",
+                                        }}
+                                    />
+                                </div>
+                                <div style={labelStyle}>Other</div>
+                            </div>
                         </div>
+
+                        {selectedIssue === "other" && (
+                            <input
+                                type="text"
+                                placeholder="Please specify your issue"
+                                value={otherIssue}
+                                onChange={(e) => setOtherIssue(e.target.value)}
+                                style={{
+                                    width: "100%",
+                                    padding: "12px",
+                                    marginTop: "20px",
+                                    fontSize: "16px",
+                                    borderRadius: "4px",
+                                    border: "1px solid #ccc",
+                                    fontFamily: "Arial, sans-serif",
+                                }}
+                                required
+                            />
+                        )}
 
                         <button
                             type="submit"
