@@ -250,38 +250,38 @@ print(f"This image most likely belongs to {predicted_class} with a {confidence:.
 # from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 # import os
 
-# # Function to load and preprocess an image
-# def load_and_preprocess_image(img_path):
-#     img = tf.keras.utils.load_img(img_path, target_size=(img_height, img_width))
-#     img_array = tf.keras.utils.img_to_array(img)
-#     img_array = tf.expand_dims(img_array, 0)  # Create a batch
-#     return img_array
+# Function to load and preprocess an image
+def load_and_preprocess_image(img_path):
+    img = tf.keras.utils.load_img(img_path, target_size=(img_height, img_width))
+    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)  # Create a batch
+    return img_array
 
-# # Function to predict the class of an image
-# def predict_image(model, img_path):
-#     img_array = load_and_preprocess_image(img_path)
-#     predictions = model.predict(img_array)
-#     predicted_class = np.argmax(predictions, axis=-1)
-#     return predicted_class[0]
+# Function to predict the class of an image
+def predict_image(model, img_path):
+    img_array = load_and_preprocess_image(img_path)
+    predictions = model.predict(img_array)
+    predicted_class = np.argmax(predictions, axis=-1)
+    return predicted_class[0]
 
-# # Get the list of test images and their true labels
-# test_image_paths = []
-# true_labels = []
+# Get the list of test images and their true labels
+test_image_paths = []
+true_labels = []
 
-# for class_name in class_names:
-#     class_dir = os.path.join(test_dir, class_name)
-#     if not os.path.isdir(class_dir):
-#         continue
-#     class_image_paths = [os.path.join(class_dir, fname) for fname in os.listdir(class_dir) if fname.endswith(('jpg', 'jpeg', 'png'))]
-#     test_image_paths.extend(class_image_paths)
-#     true_labels.extend([class_names.index(class_name)] * len(class_image_paths))
+for class_name in class_names:
+    class_dir = os.path.join(test_dir, class_name)
+    if not os.path.isdir(class_dir):
+        continue
+    class_image_paths = [os.path.join(class_dir, fname) for fname in os.listdir(class_dir) if fname.endswith(('jpg', 'jpeg', 'png'))]
+    test_image_paths.extend(class_image_paths)
+    true_labels.extend([class_names.index(class_name)] * len(class_image_paths))
 
-# # Ensure true_labels and predicted_labels are numpy arrays
-# true_labels = np.array(true_labels)
+# Ensure true_labels and predicted_labels are numpy arrays
+true_labels = np.array(true_labels)
 
-# # Predict the class for each test image
-# predicted_labels = [predict_image(model, img_path) for img_path in test_image_paths]
-# predicted_labels = np.array(predicted_labels)
+# Predict the class for each test image
+predicted_labels = [predict_image(model, img_path) for img_path in test_image_paths]
+predicted_labels = np.array(predicted_labels)
 
 # # Debug prints to verify contents and shapes
 # print(f"True labels: {true_labels}")
@@ -299,9 +299,12 @@ print(f"This image most likely belongs to {predicted_class} with a {confidence:.
 # # plt.title('Confusion Matrix')
 # # plt.show()
 
+import json
+with open("class_names.json", "w") as f:
+    json.dump(class_names, f)
 
 # In[ ]:
-model.save("final.keras")
+model.save("final1.keras")
 
 
 
